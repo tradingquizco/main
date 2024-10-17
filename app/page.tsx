@@ -1,101 +1,51 @@
-import Image from "next/image";
+import Header from "@/components/Header";
+import Button from "@/components/Button";
+import React from "react";
 
-export default function Home() {
+const Home = () => {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="h-dvh relative pt-3 ">
+      <Header />
+      <div className=" absolute top-[15%] flex items-center justify-around gap-10 w-full max-lg:flex-col">
+        <div className="uppercase flex flex-col items-center gap-2">
+          <h2 className="text-5xl font-extrabold max-lg:text-3xl">tradeing quiz </h2>
+          <span className="font-light text-3xl text-slate-700">be a real hunter</span>
+          <div className="bg-white shadow-md rounded-md p-2 flex gap-2">
+            <input type="text" placeholder="Enter youre Email" className="bg-transparent outline-none"/>
+            <Button>Sign Up</Button>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <img src="./test.png" alt="" className="max-w-96 " />
+        <button className="bg-orange-400 shadow-orange-400 p-2 shadow-md text-white rounded-md px-2 max-lg:hidden">Get Started</button>
+      </div>
+      <img src="./Frame.png" alt="" className="max-w-96" />
+
+      <div className="flex justify-around max-xl:flex-col max-xl:items-center max-xl:gap-5">
+        <div className="bg-gray-200 rounded-md p-5 flex flex-col gap-5 max-w-80 shadow-md shadow-gray-600">
+          <h4 className="text-center uppercase font-semibold">follower <span>+5000</span></h4>
+          <p className="text-slate-600 text-sm text-center font-medium">Join the big Trading Quiz family by following us</p>
+          <Button>Joining US</Button>
+        </div>
+
+        <div className="bg-gray-200 rounded-md p-5 flex flex-col gap-5 max-w-80 shadow-md shadow-gray-600">
+          <h4 className="text-center uppercase font-semibold">Quiz <span>+67000</span></h4>
+          <p className="text-slate-600 text-sm text-center font-medium">Join the big Trading Quiz family by following us</p>
+          <Button>Joining US</Button>
+        </div>
+
+        <div className="bg-gray-200 rounded-md p-5 flex flex-col gap-5 max-w-80 shadow-md shadow-gray-600">
+          <h4 className="text-center uppercase font-semibold">online user <span>+4514</span></h4>
+          <p className="text-slate-600 text-sm text-center font-medium">Join the big Trading Quiz family by following us</p>
+          <Button>Joining US</Button>
+        </div>
+
+      </div>
+
+      <div className="mb-14 mt-40 flex justify-around max-lg:flex-col max-lg:items-center max-lg:mt-20">
+        <textarea placeholder="Example: woow!!" className="bg-gray-200 outline-none rounded-md resize-none p-2 w-64 h-32 shadow-gray-400 shadow-md"/>
+        <h5 className="text-2xl font-bold text-center leading-10 max-lg:text-xl max-lg:my-5">Your criticism and suggestions will encourage and improve us.<br/> Thank you for your feedback<br/><Button>Submit</Button></h5>
+      </div>
     </div>
   );
-}
+};
+export default Home;
