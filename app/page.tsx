@@ -16,12 +16,11 @@ const Home = () => {
           </div>
         </div>
         <img src="./test.png" alt="" className="max-w-96 " />
-        <button className="bg-orange-400 shadow-orange-400 p-2 shadow-md text-white rounded-md px-2 max-lg:hidden">Get Started</button>
       </div>
       <img src="./Frame.png" alt="" className="max-w-96" />
 
       <div className="flex justify-around max-xl:flex-col max-xl:items-center max-xl:gap-5">
-        <div className="bg-gray-200 rounded-md p-5 flex flex-col gap-5 max-w-80 shadow-md shadow-gray-600">
+        <div className="bg-grasy-200 border rounded-md p-5 flex flex-col gap-5 max-w-80 shadsow-md shadow-grsay-600">
           <h4 className="text-center uppercase font-semibold">follower <span>+5000</span></h4>
           <p className="text-slate-600 text-sm text-center font-medium">Join the big Trading Quiz family by following us</p>
           <Button>Joining US</Button>

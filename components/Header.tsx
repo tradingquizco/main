@@ -16,7 +16,6 @@ const Header = () => {
         <button className="border-orange-400 border   rounded-md px-2 pt-1 h-fit">
           Login
         </button>
-        
       </div>
     </header>
   );
