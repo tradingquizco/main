@@ -36,6 +36,7 @@ const LoginForm = () => {
         const { message } = await response.json();
         setErrorMessage(message);
         setLoading(true);
+        return;
       }
 
       const { url, sessionToken, sessionId, cookieConfig } =

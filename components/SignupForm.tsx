@@ -1,21 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Alert,
-  Divider,
-  Form,
-  Input,
-  Spin,
-} from "antd";
+import { Alert, Button, Divider, Form, Input, Spin } from "antd";
 import FormItem from "antd/es/form/FormItem";
 import Password from "antd/es/input/Password";
-import {Content} from "antd/es/layout/layout";
+import { Content } from "antd/es/layout/layout";
 import Title from "antd/es/typography/Title";
 import Text from "antd/es/typography/Text";
 import LoginAction from "@/lib/loginAction";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import useToken from "antd/es/theme/useToken";
+import Cookies from "js-cookie";
 
 const SignupForm = () => {
   const {
@@ -24,27 +19,63 @@ const SignupForm = () => {
 
   const [errorMessage, setErrorMessage] = useState<string | null>();
   const [loading, setLoading] = useState<boolean>(false);
-//   const { push } = useRouter();
+  const { push } = useRouter();
 
-  const onFinish = async (value: { email: string; password: string }) => {
-    setLoading(true);
-    const result = await LoginAction(value);
-    setLoading(false);
+  const onFinish = async (value: {
+    email: string;
+    password: string;
+    name: string;
+    username: string;
+  }) => {
+    try {
+      setLoading(true);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API}/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(value),
+      });
 
-    //handling result
-    if (result.isError) {
-      setErrorMessage(result.message);
-    } else {
-      redirect("/");
+      if (!response.ok) {
+        console.log(response);
+        const { message } = await response.json();
+        setErrorMessage(message);
+        setLoading(true);
+        return;
+      }
+
+      const { url, sessionToken, sessionId, cookieConfig } =
+        await response.json();
+      const cookieOptions = {
+        expires: new Date(cookieConfig.maxAge),
+        domain: cookieConfig.domain,
+        path: cookieConfig.path,
+        sameSite: cookieConfig.sameSite,
+      };
+      Cookies.set("sessionToken", sessionToken, cookieOptions);
+      Cookies.set("sessionId", sessionId, cookieOptions);
+
+      push(url);
+    } catch (err) {
+      console.log(err);
+      setErrorMessage("Faild To Fetch");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <Content className="w-full h-full flex items-center justify-center flex-col gap-8">
       <header className="flex items-center justify-center flex-col text-center">
-        <Title level={3}>Sign up to challenge yourself with quizzes and boost your financial market skills!</Title>
+        <Title level={3}>
+          Sign up to challenge yourself with quizzes and boost your financial
+          market skills!
+        </Title>
         <Text type="secondary">
-        Ready to level up your financial game? By joining us, you’ll get access to a variety of quizzes designed to test and improve your knowledge of financial markets.
+          Ready to level up your financial game? By joining us, you’ll get
+          access to a variety of quizzes designed to test and improve your
+          knowledge of financial markets.
         </Text>
       </header>
       <Divider dashed className="max-md:!hidden">
@@ -64,12 +95,11 @@ const SignupForm = () => {
           name="name"
           validateTrigger="onBlur"
           className="w-full md:w-3/5"
-          rules={[{ min: 3, type: "email", required: true }]}
+          rules={[{ min: 3, required: true }]}
         >
           <Input
             placeholder="youre name..."
             type="name"
-            size="large"
             variant="filled"
           />
         </FormItem>
@@ -79,12 +109,11 @@ const SignupForm = () => {
           name="username"
           validateTrigger="onBlur"
           className="w-full md:w-3/5"
-          rules={[{ min: 3, type: "email", required: true }]}
+          rules={[{ min: 3, required: true }]}
         >
           <Input
             placeholder="username..."
             type="username"
-            size="large"
             variant="filled"
           />
         </FormItem>
@@ -94,14 +123,9 @@ const SignupForm = () => {
           name="email"
           validateTrigger="onBlur"
           className="w-full md:w-3/5"
-          rules={[{ min: 3, type: "email", required: true }]}
+          rules={[{ min: 3, required: true }]}
         >
-          <Input
-            placeholder="Email..."
-            type="email"
-            size="large"
-            variant="filled"
-          />
+          <Input placeholder="Email..." type="email" variant="filled" />
         </FormItem>
 
         <FormItem
@@ -115,18 +139,19 @@ const SignupForm = () => {
           <Password
             placeholder="Password..."
             type="password"
-            size="large"
             variant="filled"
           />
         </FormItem>
         <FormItem className="w-full md:w-3/5 mt-4">
           <Spin spinning={loading}>
-            <button
-              type="submit"
-              className="w-full py-2 text-xl font-bold bg-orange-400 shadow-orange-400 p-2 shadow-md text-white rounded-md px-2  hover:shadow-lg hover:shadow-orange-400 transition-all"
+            <Button
+              type="primary"
+              variant="filled"
+              htmlType="submit"
+              className="w-full font-bold !bg-[#d89614] border-none hover:bg-[#d8961470] text-white rounded-md transition-all"
             >
               {!loading ? "Submit" : "Submitting"}
-            </button>
+            </Button>
           </Spin>
         </FormItem>
       </Form>

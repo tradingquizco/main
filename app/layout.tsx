@@ -4,13 +4,14 @@ import { AntdRegistry } from "@ant-design/nextjs-registry";
 import "./globals.css";
 import { Layout } from "antd";
 import { Content } from "antd/es/layout/layout";
+import LayoutProvider from "@/provider/LayoutProvider";
 
- const geistSans = localFont({
+const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
- const geistMono = localFont({
+const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
@@ -28,22 +29,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <AntdRegistry>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <Layout
-          style={{
-            minHeight: 'calc(100vh - 3.5rem - 24px)',
-            padding: "12px",
-            gap: "12px",
-            background: '#fff'
-          }}
-        >
-          <Content>{children}</Content>
-        </Layout>
-        </body>
-      </AntdRegistry>
+      <body>
+        <LayoutProvider>{children}</LayoutProvider>
+      </body>
     </html>
   );
 }
