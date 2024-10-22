@@ -1,6 +1,5 @@
 import Header from "@/components/Header";
 import React from "react";
-import { geistMono, geistSans } from "./layout";
 
 const Home = () => {
   return (
@@ -44,19 +43,6 @@ const Home = () => {
           <h4 className="uppercase text-lg font-normal p-1 text-left border-l-2 border-orange-500">fquizzes available to improve your skills</h4>
         </div>
       </div>
-
-      {/* <div className="mb-14 mt-40 flex justify-around max-lg:flex-col max-lg:items-center max-lg:mt-20">
-        <textarea
-          placeholder="Example: woow!!"
-          className="bg-gray-200 outline-none rounded-md resize-none p-2 w-64 h-32 shadow-gray-400 shadow-md"
-        />
-        <h5 className="text-2xl font-bold text-center leading-10 max-lg:text-xl max-lg:my-5">
-          Your criticism and suggestions will encourage and improve us.
-          <br /> Thank you for your feedback
-          <br />
-          <Button>Submit</Button>
-        </h5>
-      </div> */}
     </div>
   );
 };

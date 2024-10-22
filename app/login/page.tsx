@@ -14,7 +14,7 @@ const Login = () => {
   } = useToken();
   return (
     <Layout
-      className="w-full flex items-center justify-center p-[12px] gap-[12px] flex-col-reverse md:flex-row max-md:gap-y-9 max-md:!h-fit"
+      className="w-full flex items-center justify-center p-[12px] gap-[12px] !flex-row max-md:!flex-col-reverse max-md:gap-y-9 max-md:!h-fit"
       style={{ height: "calc(100vh - 24px)", backgroundColor: colorBgBase }}
     >
       <Content className="w-[40%] h-full max-md:w-full flex items-center justify-center flex-col">
