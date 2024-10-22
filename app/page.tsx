@@ -20,12 +20,12 @@ const Home = () => {
           </button>
         </div>
         <img
-          src="./test.png"
+          src="/test.png"
           alt=""
           className="max-w-2xl max-md:max-w-96 max-sm:max-w-80"
         />
       </div>
-      <img src="./Frame.png" alt="" className="max-w-xl max-md:max-w-72" />
+      <img src="/Frame.png" alt="" className="max-w-xl max-md:max-w-72" />
 
       <div className="flex justify-around max-xl:flex-col max-xl:mt-14 max-xl:items-center max-xl:gap-5 ">
         <div className="p-5 flex  gap-3 items-center max-w-96 cursor-pointer transition ease-linear delay-75 hover:-translate-y-4">
