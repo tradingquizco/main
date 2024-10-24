@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Alert, Button, Divider, Form, Input, message, Spin } from "antd";
+import { Alert, Button, Divider, Flex, Form, Input, message, Spin } from "antd";
 import FormItem from "antd/es/form/FormItem";
 import Password from "antd/es/input/Password";
 import { Content } from "antd/es/layout/layout";
@@ -10,6 +10,7 @@ import Text from "antd/es/typography/Text";
 import { useRouter } from "next/navigation";
 import useToken from "antd/es/theme/useToken";
 import Cookies from "js-cookie";
+import Link from "next/link";
 
 const LoginForm = () => {
   const {
@@ -117,6 +118,14 @@ const LoginForm = () => {
             </Button>
           </Spin>
         </FormItem>
+        <Flex vertical align="center">
+          <Text className="text-sm" type="secondary">
+            <Link href={"/register"}>Login To Account</Link>
+          </Text>
+          <Text className="text-sm" type="secondary">
+            <Link href={"/"}>Home</Link>
+          </Text>
+        </Flex>
       </Form>
       {errorMessage && (
         <Alert

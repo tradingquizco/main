@@ -1,5 +1,6 @@
 "use client";
 
+import Header from "@/components/Header";
 import antThemeConfig from "@/consepts/theme";
 import { ConfigProvider, Layout, Menu, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
@@ -13,21 +14,19 @@ const LayoutProvider = ({ children }: { children: ReactNode }) => {
   } = useToken();
   const pathname = usePathname();
   return (
-    <ConfigProvider
-      theme={{ ...antThemeConfig }}
-    >
-      {pathname === "/login" || pathname === "/register"}
-        <Layout
-          style={{
-            minHeight: 'calc(100vh - 3.5rem - 24px)',
-            padding: "12px",
-            gap: "12px",
-            backgroundColor: colorBgBase
-            // backgroundColor: colorWhite,
-          }}
-        >
-          <Content>{children}</Content>
-        </Layout>
+    <ConfigProvider theme={{ ...antThemeConfig }}>
+      {pathname === "/login" || pathname === "/register" ? null : <Header />}
+      <Layout
+        style={{
+          minHeight: "calc(100vh - 3.5rem - 24px)",
+          padding: "12px",
+          gap: "12px",
+          backgroundColor: colorBgBase,
+          // backgroundColor: colorWhite,
+        }}
+      >
+        <Content>{children}</Content>
+      </Layout>
     </ConfigProvider>
   );
 };
