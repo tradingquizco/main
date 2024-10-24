@@ -16,7 +16,7 @@ const LayoutProvider = ({ children }: { children: ReactNode }) => {
     <ConfigProvider
       theme={{ ...antThemeConfig }}
     >
-      {/* <ThemeProvider > */}
+      {pathname === "/login" || pathname === "/register"}
         <Layout
           style={{
             minHeight: 'calc(100vh - 3.5rem - 24px)',
@@ -28,7 +28,6 @@ const LayoutProvider = ({ children }: { children: ReactNode }) => {
         >
           <Content>{children}</Content>
         </Layout>
-      {/* </ThemeProvider> */}
     </ConfigProvider>
   );
 };
