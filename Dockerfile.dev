@@ -1,11 +1,17 @@
 FROM node:20-alpine AS base
-
-FROM base AS deps
-RUN apk add --no-cache libc6-compat
 WORKDIR /app
+
+RUN apk add --no-cache libc6-compat
 COPY package.json package-lock.json ./
 # RUN npm install -D @swc/cli @swc/core
 RUN npm i
+COPY . .
+USER nextjs
+
+EXPOSE 3000
+
+CMD ["npm", "run", "dev"]
+
 
 FROM base AS runner
 WORKDIR /app
@@ -21,9 +27,3 @@ COPY ./public /app/public
 COPY . .
 
 RUN chown -R nextjs:nodejs /app
-
-USER nextjs
-
-EXPOSE 3000
-
-CMD ["npm", "run", "dev"]

@@ -55,10 +55,10 @@ const DesktopNavbar = () => {
       <Flex align="center" className="h-full" gap={3}>
         {" "}
         <Button type="link">
-          Login
+          <Link href={'/login'}>Login</Link>
         </Button>
         <Button type="primary" variant="filled">
-          Reigster
+          <Link href={'/register'}>Register</Link>
         </Button>
       </Flex>
     </nav>

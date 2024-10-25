@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
-import { Avatar, Button, Divider, Drawer } from "antd";
+import { Avatar, Button, Divider, Drawer, Flex } from "antd";
 import Title from "antd/es/typography/Title";
 import Text from "antd/es/typography/Text";
 import Image from "next/image";
@@ -72,6 +72,16 @@ const MobileNavbar: React.FC = () => {
               </li>
             ))}
           </ul>
+
+          <Flex align="center" justify="space-around" className="w-full" gap={3}>
+            {" "}
+            <Button type="link">
+              <Link href={"/login"}>Login</Link>
+            </Button>
+            <Button type="primary" variant="filled">
+              <Link href={"/register"}>Register</Link>
+            </Button>
+          </Flex>
 
           {/* <div className="w-full">
             <Divider>
