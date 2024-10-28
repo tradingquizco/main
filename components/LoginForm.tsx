@@ -1,7 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
-import { Alert, Button, Divider, Flex, Form, Input, message, Spin } from "antd";
+import {
+  Alert,
+  Badge,
+  Button,
+  Divider,
+  Flex,
+  Form,
+  Input,
+  message,
+  Spin,
+} from "antd";
 import FormItem from "antd/es/form/FormItem";
 import Password from "antd/es/input/Password";
 import { Content } from "antd/es/layout/layout";
@@ -11,6 +21,7 @@ import { useRouter } from "next/navigation";
 import useToken from "antd/es/theme/useToken";
 import Cookies from "js-cookie";
 import Link from "next/link";
+import OTP from "antd/es/input/OTP";
 
 const LoginForm = () => {
   const {
@@ -19,7 +30,12 @@ const LoginForm = () => {
 
   const [errorMessage, setErrorMessage] = useState<string | null>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [inviteCode, setInviteCode] = useState<string>("");
   const { push } = useRouter();
+
+  const onChange = (text: any) => {
+    setInviteCode(text);
+  };
 
   const onFinish = async (value: { email: string; password: string }) => {
     try {
@@ -29,11 +45,14 @@ const LoginForm = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: value.email, password: value.password }),
+        body: JSON.stringify({
+          email: value.email,
+          password: value.password,
+          inviteCode,
+        }),
       });
 
       if (!response.ok) {
-        console.log(response);
         const { message } = await response.json();
         setErrorMessage(message);
         setLoading(true);
@@ -106,6 +125,17 @@ const LoginForm = () => {
             variant="filled"
           />
         </FormItem>
+        <Divider className="w-full md:w-3/5" variant="dashed">
+          <Text type="secondary" className="text-sm">
+            Do you have Invite Code
+          </Text>
+        </Divider>
+        <FormItem className="w-full md:w-3/5" name="invite_code">
+          <Flex className="w-full" justify="space-between" align="center">
+            <Text>Invite Code</Text>
+            <OTP onChange={onChange} />
+          </Flex>
+        </FormItem>
         <FormItem className="w-full md:w-3/5 mt-4">
           <Spin spinning={loading}>
             <Button
@@ -120,7 +150,7 @@ const LoginForm = () => {
         </FormItem>
         <Flex vertical align="center">
           <Text className="text-sm" type="secondary">
-            <Link href={"/register"}>Login To Account</Link>
+            <Link href={"/register"}>Create Account</Link>
           </Text>
           <Text className="text-sm" type="secondary">
             <Link href={"/"}>Home</Link>

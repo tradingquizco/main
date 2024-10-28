@@ -1,29 +1,44 @@
+# Use a Node.js base image
 FROM node:20-alpine AS base
-WORKDIR /app
 
+# Stage for installing dependencies
+FROM base AS deps
+# Install necessary packages, including libc6-compat for compatibility
 RUN apk add --no-cache libc6-compat
+
+WORKDIR /app
 COPY package.json package-lock.json ./
-# RUN npm install -D @swc/cli @swc/core
-RUN npm i
-COPY . .
-USER nextjs
 
-EXPOSE 3000
+# Install dependencies
+RUN npm install
+RUN npm install npm@10.9.0
 
-CMD ["npm", "run", "dev"]
-
-
+# Stage for running the application
 FROM base AS runner
 WORKDIR /app
-ENV NODE_ENV=development
 
+# Set the environment variable
+ENV NODE_ENV development
+
+# Create a non-root user for running the app
 RUN if ! id "nextjs" &>/dev/null; then \
   addgroup --system --gid 1002 nodejs && \
   adduser --system --ingroup nodejs nextjs; \
   fi
 
+# Copy node_modules and application files
 COPY --from=deps /app/node_modules ./node_modules
 COPY ./public /app/public
 COPY . .
 
+# Change ownership of the application files
 RUN chown -R nextjs:nodejs /app
+
+# Switch to the non-root user
+USER nextjs
+
+# Expose the application port
+EXPOSE 3000
+
+# Command to run the application
+CMD ["npm", "run", "dev"]

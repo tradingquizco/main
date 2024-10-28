@@ -12,6 +12,7 @@ import { redirect, useRouter } from "next/navigation";
 import useToken from "antd/es/theme/useToken";
 import Cookies from "js-cookie";
 import Link from "next/link";
+import OTP from "antd/es/input/OTP";
 
 const SignupForm = () => {
   const {
@@ -20,7 +21,12 @@ const SignupForm = () => {
 
   const [errorMessage, setErrorMessage] = useState<string | null>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [inviteCode, setInviteCode] = useState<string>("");
   const { push } = useRouter();
+
+  const onChange = (text: any) => {
+    setInviteCode(text);
+  };
 
   const onFinish = async (value: {
     email: string;
@@ -35,7 +41,7 @@ const SignupForm = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(value),
+        body: JSON.stringify({...value, inviteCode}),
       });
 
       if (!response.ok) {
@@ -98,11 +104,7 @@ const SignupForm = () => {
           className="w-full md:w-3/5"
           rules={[{ min: 3, required: true }]}
         >
-          <Input
-            placeholder="youre name..."
-            type="name"
-            variant="filled"
-          />
+          <Input placeholder="youre name..." type="name" variant="filled" />
         </FormItem>
         <FormItem
           hasFeedback
@@ -112,11 +114,7 @@ const SignupForm = () => {
           className="w-full md:w-3/5"
           rules={[{ min: 3, required: true }]}
         >
-          <Input
-            placeholder="username..."
-            type="username"
-            variant="filled"
-          />
+          <Input placeholder="username..." type="username" variant="filled" />
         </FormItem>
         <FormItem
           hasFeedback
@@ -142,6 +140,17 @@ const SignupForm = () => {
             type="password"
             variant="filled"
           />
+        </FormItem>
+        <Divider className="w-full md:w-3/5" variant="dashed">
+          <Text type="secondary" className="text-sm">
+            Do you have Invite Code
+          </Text>
+        </Divider>
+        <FormItem className="w-full md:w-3/5" name="invite_code">
+          <Flex className="w-full" justify="space-between" align="center">
+            <Text>Invite Code</Text>
+            <OTP onChange={onChange} />
+          </Flex>
         </FormItem>
         <FormItem className="w-full md:w-3/5 mt-4">
           <Spin spinning={loading}>
